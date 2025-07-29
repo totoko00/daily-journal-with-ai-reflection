@@ -40,6 +40,15 @@ export class FileManager {
     return entries;
   }
 
+  async listJournalDates(): Promise<string[]> {
+    await this.ensureDir();
+    const files = await fs.readdir(this.baseDir);
+    return files
+      .filter(f => f.endsWith('.txt'))
+      .map(f => f.replace('.txt', ''))
+      .sort();
+  }
+
   async saveSettings(settings: AppSettings): Promise<void> {
     await this.ensureDir();
     const file = path.join(this.baseDir, 'settings.json');

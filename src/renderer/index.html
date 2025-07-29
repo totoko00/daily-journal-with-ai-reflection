@@ -10,6 +10,28 @@
   <div>
     <button id="save">保存</button>
   </div>
+  <h2>設定</h2>
+  <div>
+    <input id="api-key" type="password" placeholder="OpenAI API Key" />
+    <button id="save-settings">設定保存</button>
+  </div>
+
+  <h2>履歴</h2>
+  <div>
+    <select id="history"></select>
+    <button id="load-history">読み込み</button>
+  </div>
+
+  <h2>振り返り</h2>
+  <div>
+    <button id="week">今週</button>
+    <button id="month">今月</button>
+    <button id="year">今年</button>
+    <input id="start-date" type="date" />-
+    <input id="end-date" type="date" />
+    <button id="analyze">分析</button>
+  </div>
+  <pre id="analysis"></pre>
   <script src="renderer.js"></script>
 </body>
 </html>
