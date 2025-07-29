@@ -7,7 +7,7 @@
     "start": "electron ./dist/main/main.js",
     "watch-main": "tsc -w --project tsconfig.json",
     "watch-renderer": "tsc -w --project tsconfig.json",
-    "build": "tsc",
+    "build": "tsc && node scripts/copy-assets.js",
     "dev": "concurrently \"tsc -w\" \"electron ./dist/main/main.js\""
   },
   "keywords": [],
