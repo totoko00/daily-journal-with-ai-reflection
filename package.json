@@ -1,0 +1,28 @@
+{
+  "name": "daily-journal-with-ai-reflection",
+  "version": "1.0.0",
+  "description": "毎日日記アプリ",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ./dist/main/main.js",
+    "watch-main": "tsc -w --project tsconfig.json",
+    "watch-renderer": "tsc -w --project tsconfig.json",
+    "build": "tsc",
+    "dev": "concurrently \"tsc -w\" \"electron ./dist/main/main.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@types/node-fetch": "^2.6.12",
+    "concurrently": "^9.2.0",
+    "electron": "^37.2.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
