@@ -32,6 +32,22 @@ ipcMain.handle('load-entry', async (event, date: string) => {
   return fileManager.loadJournalEntry(date);
 });
 
+ipcMain.handle('list-entries', async () => {
+  return fileManager.listJournalDates();
+});
+
+ipcMain.handle('get-range-entries', async (event, start: string, end: string) => {
+  return fileManager.getJournalEntriesInRange(start, end);
+});
+
+ipcMain.handle('save-settings', async (event, settings) => {
+  await fileManager.saveSettings(settings);
+});
+
+ipcMain.handle('load-settings', async () => {
+  return fileManager.loadSettings();
+});
+
 ipcMain.handle('analyze', async (event, entries, apiKey: string) => {
   const service = new OpenAIService(apiKey);
   return service.analyze(entries);
