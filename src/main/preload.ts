@@ -9,4 +9,5 @@ contextBridge.exposeInMainWorld('api', {
   getRangeEntries: (start: string, end: string) => ipcRenderer.invoke('get-range-entries', start, end),
   saveSettings: (settings: any) => ipcRenderer.invoke('save-settings', settings),
   loadSettings: () => ipcRenderer.invoke('load-settings'),
+  selectDirectory: () => ipcRenderer.invoke('select-directory'),
 });

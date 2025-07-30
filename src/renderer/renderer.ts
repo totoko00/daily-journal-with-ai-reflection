@@ -2,6 +2,7 @@ const textarea = document.getElementById('entry') as HTMLTextAreaElement;
 const saveBtn = document.getElementById('save') as HTMLButtonElement;
 const apiKeyInput = document.getElementById('api-key') as HTMLInputElement;
 const dataDirInput = document.getElementById('data-dir') as HTMLInputElement;
+const browseDirBtn = document.getElementById('browse-dir') as HTMLButtonElement;
 const saveSettingsBtn = document.getElementById('save-settings') as HTMLButtonElement;
 const historySelect = document.getElementById('history') as HTMLSelectElement;
 const loadHistoryBtn = document.getElementById('load-history') as HTMLButtonElement;
@@ -12,6 +13,13 @@ const startDateInput = document.getElementById('start-date') as HTMLInputElement
 const endDateInput = document.getElementById('end-date') as HTMLInputElement;
 const analyzeBtn = document.getElementById('analyze') as HTMLButtonElement;
 const analysisPre = document.getElementById('analysis') as HTMLElement;
+
+browseDirBtn.addEventListener('click', async () => {
+  const dir = await window.api.selectDirectory();
+  if (dir) {
+    dataDirInput.value = dir;
+  }
+});
 
 function getToday() {
   return new Date().toISOString().slice(0, 10);

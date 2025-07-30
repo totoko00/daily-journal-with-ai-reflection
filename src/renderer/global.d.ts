@@ -7,5 +7,6 @@ interface Window {
     getRangeEntries(start: string, end: string): Promise<any[]>;
     saveSettings(settings: any): Promise<void>;
     loadSettings(): Promise<any | null>;
+    selectDirectory(): Promise<string | null>;
   };
 }

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from 'path';
 import { FileManager } from './FileManager';
 import { OpenAIService } from './OpenAIService';
@@ -56,6 +56,13 @@ ipcMain.handle('save-settings', async (event, settings) => {
 
 ipcMain.handle('load-settings', async () => {
   return fileManager.loadSettings();
+});
+
+ipcMain.handle('select-directory', async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openDirectory'],
+  });
+  return result.canceled ? null : result.filePaths[0];
 });
 
 ipcMain.handle('analyze', async (event, entries, apiKey: string) => {
