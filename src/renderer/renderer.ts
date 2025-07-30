@@ -1,6 +1,7 @@
 const textarea = document.getElementById('entry') as HTMLTextAreaElement;
 const saveBtn = document.getElementById('save') as HTMLButtonElement;
 const apiKeyInput = document.getElementById('api-key') as HTMLInputElement;
+const dataDirInput = document.getElementById('data-dir') as HTMLInputElement;
 const saveSettingsBtn = document.getElementById('save-settings') as HTMLButtonElement;
 const historySelect = document.getElementById('history') as HTMLSelectElement;
 const loadHistoryBtn = document.getElementById('load-history') as HTMLButtonElement;
@@ -31,6 +32,7 @@ async function loadSettings() {
   const settings = await window.api.loadSettings();
   if (settings) {
     apiKeyInput.value = settings.openaiApiKey || '';
+    dataDirInput.value = settings.dataDirectory || '';
   }
 }
 
@@ -47,7 +49,10 @@ saveBtn.addEventListener('click', async () => {
 
 saveSettingsBtn.addEventListener('click', async () => {
   try {
-    await window.api.saveSettings({ openaiApiKey: apiKeyInput.value });
+    await window.api.saveSettings({
+      openaiApiKey: apiKeyInput.value,
+      dataDirectory: dataDirInput.value,
+    });
     alert('設定を保存しました');
   } catch (e: any) {
     alert(`設定保存エラー: ${e.message}`);
