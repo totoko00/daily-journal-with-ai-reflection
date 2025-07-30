@@ -13,7 +13,7 @@ export class OpenAIService {
         'Authorization': `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'gpt-4.1-mini',
         messages: [{ role: 'user', content: `Analyze my journal:\n${content}` }],
       }),
     });
