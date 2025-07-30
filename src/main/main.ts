@@ -4,8 +4,9 @@ import { FileManager } from './FileManager';
 import { OpenAIService } from './OpenAIService';
 import { validateJournalEntry } from '../models/utils';
 
-const dataDir = path.join(app.getPath('userData'), 'journals');
-const fileManager = new FileManager(dataDir);
+const defaultDataDir = path.join(app.getPath('userData'), 'journals');
+const settingsPath = path.join(app.getPath('userData'), 'settings.json');
+const fileManager = new FileManager(defaultDataDir, settingsPath);
 let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
@@ -21,7 +22,13 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(async () => {
+  const settings = await fileManager.loadSettings();
+  if (settings?.dataDirectory) {
+    fileManager.setDataDir(settings.dataDirectory);
+  }
+  createWindow();
+});
 
 ipcMain.handle('save-entry', async (event, date: string, content: string) => {
   if (!validateJournalEntry(content)) throw new Error('invalid');
@@ -42,6 +49,9 @@ ipcMain.handle('get-range-entries', async (event, start: string, end: string) =>
 
 ipcMain.handle('save-settings', async (event, settings) => {
   await fileManager.saveSettings(settings);
+  if (settings?.dataDirectory) {
+    fileManager.setDataDir(settings.dataDirectory);
+  }
 });
 
 ipcMain.handle('load-settings', async () => {
